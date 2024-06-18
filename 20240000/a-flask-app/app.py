@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 import os
+import json
+import requests 
+
 app = Flask(__name__)
 class Persona:
     def __init__(self, nome, cognome):
@@ -59,6 +62,9 @@ def autenticazione():
     for utente in lista_dipendenti:
         if nomeStr == utente.getNome() and cognomeStr == utente.getCognome():
             loggedUser = utente
+            url ="https://nodered-38317.azurewebsites.net/ciaone?nomeStr={}".format(nomeStr)
+            r = requests.get(url)
+
             return render_template("homeDip.html", paramUser=loggedUser)
         else:
             for utente in lista_consulenti:
