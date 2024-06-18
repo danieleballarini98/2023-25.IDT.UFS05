@@ -1,10 +1,14 @@
 <html>
     <head>
-        <title>Titolo</title>
+        <title>Login</title>
     </head>
     <body>
-        <h1>Home</h1>
-        <p>Questa è la tua pagina iniziale, incredibbile!</p>
-        <p><a href="/login">Autenticazione</a></p>
+        <p>Inserisci i dati richiesti.</p>
+        <form action="/autenticazione" method="post">
+            nome:<input type="text" name="nome" id="nome"><br>
+            cognome:<input type="text" name="cognome" id="cognome"><br>
+            <input type="reset" value="annulla">
+            <input type="submit" value="invia">
+            </form>
     </body>
 </html>

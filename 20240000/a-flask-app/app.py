@@ -1,120 +1,87 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, render_template, request
 import os
-
-appWeb = Flask(__name__)
-
-#http://www.miosito.it/prova
-#http://www.miosito.it/saluto
-
-#http://www.miosito.it/
-
-class Utente:
-    def __init__(self, nome, cognome, username, password, email, data_di_nascita, genere):
+app = Flask(__name__)
+class Persona:
+    def __init__(self, nome, cognome):
         self.nome = nome
         self.cognome = cognome
-        self.username = username
-        self.password = password
-        self.email = email
-        self.data_di_nascita = data_di_nascita
-        self.genere = genere
 
-    def ottieni_nome(self):
+    def getNome(self):
         return self.nome
-    
-    def ottieni_cognome(self):
+    def getCognome(self):
         return self.cognome
 
-    def ottieni_username(self):
-        return self.username
-    
-    def ottieni_password(self):
-        return self.password
+class Dipendente(Persona):
+    def __init__(self, nome, cognome, stipendio: float):
+        super().__init__(nome, cognome)
+        self.stipendio = stipendio
 
-    def ottieni_email(self):
-        return self.email
+    def getStipendio(self):
+        return self.stipendio
+    def raiseSalary(self, perc):
+        self.stipendio += self.stipendio * (perc / 100)
 
-    def ottieni_data_di_nascita(self):
-        return self.data_di_nascita
+class Consulente(Persona):
+    def __init__(self, nome, cognome, piva, tariffaOre, ore):
+        super().__init__(nome, cognome)
+        self.piva = piva
+        self.tariffaOre = tariffaOre
+        self.ore = ore
 
-    def ottieni_genere(self):
-        return self.genere
-    
+    def getPIva(self):
+        return self.piva
+    def getTariffaOre(self):
+        return self.tariffaOre
+    def getOre(self):
+        return self.ore
+    def calcoloRetribuzione(self):
+        return self.tariffaOre * self.ore
 
+d1 = Dipendente("Mario", "Rossi", 30000)
+d2 = Dipendente("Luigi", "Verdi", 35000)
+d3 = Dipendente("Anna", "Bianchi", 32000)
+d1.raiseSalary(15)
 
-Utente1 = Utente("Mario", "Rossi", "mrossi", "1234567", "mario.rossi@gmail.com", "01/01/1980", "Maschio")
-Utente2 = Utente("Giovanni", "Bianchi", "gbianchi", "qwerty", "giovanni.bianchi@gmail.com", "15/05/1990", "Maschio")
-Utente3 = Utente("Roberta", "Verdi", "rverdi", "ciao1", "roberta.verdi@gmail.com", "10/10/1985", "Femmina")
-lista_utenti = [
-    Utente1, Utente2, Utente3
-]
+c1 = Consulente("Giorgio", "Neri", "12345678901", 50, 100)
+c2 = Consulente("Sofia", "Russo", "98765432109", 60, 80)
+c3 = Consulente("Claudia", "Ferrari", "11223344556", 55, 120)
 
-global loggedUser
-loggedUser = None
+lista_dipendenti = [d1,d2,d3]
+lista_consulenti = [c1,c2,c3]
 
-
-
-@appWeb.route("/")
-def main():
-    return "pagina iniziale da visualizzare"
-
-@appWeb.route("/prova")
-def prova():
-    return "stringa da visualizzare come prova"
-@appWeb.route("/presentazione")
-def saluto():
-    return "Buongiorno"
-
-@appWeb.route("/index")
+@app.route("/")
 def index():
     return render_template("index.html")
-
-@appWeb.route("/htmlsample")
-def html():
-    return "<html><body><h1>Titolo</h1><p>paragrafo da visualizzare</p></body></html>"
-
-@appWeb.route("/login")
-def login():
-    return render_template("login.html")
-
-@appWeb.route("/registrazione")
-def registrazione():
-    return render_template("registrazione.html")
-
-@appWeb.route("/home")
-def home():
-    return render_template("home.html", paramUser = loggedUser)
-
-
-@appWeb.route("/autenticazione", methods = ["POST"])
+@app.route("/autenticazione", methods = ["POST"])
 def autenticazione():
-    usernameStr = request.form.get("username")
-    passwordStr = request.form.get("password")
-    for utente in lista_utenti:
-        if usernameStr == utente.ottieni_username() and passwordStr == utente.ottieni_password():
+    nomeStr = request.form.get("nome")
+    cognomeStr = request.form.get("cognome")
+    for utente in lista_dipendenti:
+        if nomeStr == utente.getNome() and cognomeStr == utente.getCognome():
             loggedUser = utente
-            return render_template("home.html", paramUser=loggedUser)
+            return render_template("homeDip.html", paramUser=loggedUser)
+        else:
+            for utente in lista_consulenti:
+                if nomeStr == utente.getNome() and cognomeStr == utente.getCognome():
+                    loggedUser = utente
+                    return render_template("homeCons.html", paramUser=loggedUser)
     return render_template("fail.html")
 
-@appWeb.route("/registrazione_post", methods = ["POST"])
-def registrazione_post():
-    nameStr = request.form.get("name")
-    cognomeStr = request.form.get("cognome")
-    usernameStr = request.form.get("username")
-    passwordStr = request.form.get("password")
-    emailStr = request.form.get("email")
-    datadinascitaStr = request.form.get("data di nascita")
-    genereStr = request.form.get("genere")
-    utente = Utente(nameStr,cognomeStr,usernameStr,passwordStr,emailStr,datadinascitaStr,genereStr)
-    global loggedUser
-    loggedUser = utente
-    lista_utenti.append(utente)
-
-    return redirect("/home")
+@app.route("/task", methods=["GET"])
+def task():
+    nome = request.args.get("nome")
+    cognome = request.args.get("cognome")
+    
+    for utente in lista_dipendenti + lista_consulenti:
+        if utente.getNome() == nome and utente.getCognome() == cognome:
+            return render_template("task.html", paramUser=utente)
+    
+    return render_template("fail.html")
 
 if __name__ == "__main__":
     # https://learn.microsoft.com/en-us/azure/app-service/reference-app-settings
     # SERVER_PORT Read-only. The port the app should listen to.
     if "PORT" in os.environ:
-        appWeb.run(host="0.0.0.0", port=os.environ['PORT'])
+        app.run(host="0.0.0.0", port=os.environ['PORT'])
     else:
-        appWeb.run(host="0.0.0.0")
+        app.run(host="0.0.0.0")

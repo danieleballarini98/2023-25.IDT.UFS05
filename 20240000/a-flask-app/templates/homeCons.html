@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>pagina di benvenuto</title>
+    </head>
+    <body>
+        <h1>Benvenuto {{paramUser.getNome()}}</h1>
+        <p><h3>Area Personale</h3></p>
+        <p>I tuoi dati:</p>
+        <table border="1">
+            <tr>
+                <td>Nome</td>
+                <td>Cognome</td>
+                <td>Partita IVA</td>
+                <td>Tariffa a ore</td>
+                <td>Retribuzione</td>
+            </tr>
+            <tr>
+                <td>{{paramUser.getNome()}}</td>
+                <td>{{paramUser.getCognome()}}</td>
+                <td>{{paramUser.getPIva()}}</td>
+                <td>{{paramUser.getTariffaOre()}}</td>
+                <td>{{paramUser.calcoloRetribuzione()}}</td>
+            </tr>
+            
+        </table>
+    </body>
+</html>
