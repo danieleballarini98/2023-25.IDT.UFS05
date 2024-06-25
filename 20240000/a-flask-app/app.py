@@ -465,4 +465,4 @@ def ticket():
     return render_template('ticket.html', qr_filename=qr_filename)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=8000)
