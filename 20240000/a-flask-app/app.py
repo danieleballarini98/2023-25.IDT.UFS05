@@ -54,7 +54,10 @@ class Persona:
         cursor.close()
         connection.close()
 class Utente:
-    def __init__(self, email, password):
+    def __init__(self, nome, cognome, cf, email, password):
+        self.nome = nome
+        self.cognome = cognome
+        self.cf = cf
         self.email = email
         self.password = password
 
