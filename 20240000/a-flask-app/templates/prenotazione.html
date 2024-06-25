@@ -1,0 +1,81 @@
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Selezione Posto Auto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="dropdown">
+                <button class="dropdown-toggle">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('storico') }}">Le mie prenotazioni</a>
+                    <a href="{{ url_for('dati') }}">I miei dati</a>
+                    <a href="{{ url_for('logout') }}" style="color:red">Logout</a>
+                </div>
+            </div>
+            <div class="logo">Digital Park</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="prenotazione">
+            <h2>Seleziona un Posto Auto</h2>
+            <div class="parking-lot">
+                {% for posto in posti %}
+                    <div class="spot {{ 'green' if posto.stato == 0 else 'red' }}" 
+                         data-id="{{ posto.id_posto }}"
+                         onclick="selectSpot(this)">
+                        {{ posto.id_posto }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <form action="{{ url_for('conferma') }}" method="post" id="booking-form">
+                <input type="hidden" name="id_posto" id="id_posto" required>
+                <input type="hidden" name="data" value="{{ data }}">
+                <input type="hidden" name="data_in" value="{{ data_in }}">
+                <input type="hidden" name="data_out" value="{{ data_out }}">
+                
+                <div class="input-group">
+                    <label for="targa">Inserisci la tua targa:</label>
+                    <input type="text" id="targa" name="targa" required>
+                </div>
+                
+                <div class="buttons">
+                    <button type="submit" class="btn">Conferma Prenotazione</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contact-info">
+            <p>Email: info@digitalpark.com</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Address: Via Amoretti 57, Milano (MI) 20157, Italy</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Digital Park. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function selectSpot(element) {
+            if (element.classList.contains('red')) {
+                return;
+            }
+            document.querySelectorAll('.spot').forEach(spot => {
+                spot.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('id_posto').value = element.getAttribute('data-id');
+        }
+    </script>
+</body>
+</html>

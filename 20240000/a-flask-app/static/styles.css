@@ -1,0 +1,583 @@
+/* Stili globali */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  flex: 1;
+  padding-bottom: 100px;
+}
+
+/* Header */
+header {
+  background: rgba(51, 51, 51, 0.8);
+  color: #fff;
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center; /* Centra il contenuto all'interno dell'header */
+  align-items: center;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+}
+
+header .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+header .nav-links li {
+  display: inline;
+}
+
+header .nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+header .nav-links a:hover {
+  color: #3498db;
+}
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: flex;
+  align-items: center; /* Posiziona il bottone del menù all'inizio del flexbox */
+  margin-left: 1rem; /* Assicura un margine sufficiente dal bordo */
+}
+
+.dropdown-toggle {
+  background-color: #3498db;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  display: none;
+  z-index: 1001;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: #3498db;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Sezioni */
+.section {
+  padding: 4rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  width: 100%;
+}
+
+.section.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section#login,
+section#register,
+section#home {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 150px; /* Aggiungi margine inferiore */
+}
+
+section#login .login-container,
+section#register .register-container,
+section#home .home-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 100px; /* Correzione rispetto al file `register.html` */
+}
+
+section#login h2,
+section#register h2,
+section#home h2 {
+  margin-bottom: 1rem;
+}
+
+section#login .input-group,
+section#register .input-group,
+section#home .input-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+section#login .input-group label,
+section#register .input-group label,
+section#home .input-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+section#login .input-group input,
+section#register .input-group input,
+section#home .input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+section#login .buttons,
+section#register .buttons,
+section#home .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section#login .btn,
+section#register .btn,
+section#home .btn {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+}
+
+section#login .login-btn {
+  background: #3498db;
+  color: white;
+}
+
+section#register .register-btn {
+  background: #8e44ad;
+  color: white;
+}
+
+section#home .home-btn {
+  background: #2ecc71;
+  color: white;
+}
+
+.white-bg {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  padding: 2rem 1rem;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+/* Sezione contatti */
+section#contact {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+section#contact .content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Stili per il contenitore del prompt di login */
+.login-prompt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Spazio tra il testo e il link */
+  background: rgba(255, 255, 255, 0.1); /* Leggero sfondo per maggiore visibilità */
+  padding: 0.5rem 1rem; /* Padding interno per distanziare il contenuto dai bordi */
+  border-radius: 5px; /* Angoli arrotondati per il contenitore */
+  margin-left: auto; /* Spinge il contenitore sulla destra */
+}
+
+/* Stili per il testo del prompt */
+.login-prompt span {
+  color: #fff; /* Colore del testo */
+  font-size: 0.9rem; /* Dimensione del font */
+}
+
+/* Stili per il link di login */
+.login-prompt .login-link {
+  color: #3498db; /* Colore del link */
+  font-weight: bold; /* Testo in grassetto */
+  text-decoration: none; /* Rimuove la sottolineatura */
+  transition: color 0.3s ease; /* Transizione del colore al passaggio del mouse */
+}
+
+.login-prompt .login-link:hover {
+  color: #fff; /* Cambia colore al passaggio del mouse */
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-info p {
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.contact-info div {
+  text-align: left;
+}
+
+.copyright {
+  font-size: 0.6rem;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+/* Stili specifici di home.html */
+/* Aggiungi qui i tuoi stili specifici per home.html */
+section#home .hero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 6rem 0;
+  text-align: center;
+  color: #fff;
+}
+
+section#home .hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+section#home .hero p {
+  font-size: 1.5rem;
+}
+section#register .registration-form {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  section#register .registration-form h2 {
+  margin-bottom: 1rem;
+  }
+  
+  section#register .registration-form .input-group {
+  margin-bottom: 1rem;
+  }
+  
+  section#register .registration-form .input-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  }
+  
+  section#register .registration-form .input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  }
+  
+  section#register .registration-form .buttons {
+  display: flex;
+  justify-content: center;
+  }
+  
+  section#register .registration-form .btn {
+  background: #8e44ad;
+  color: white;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  }
+  
+  section#register .registration-form .login-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  }
+  
+  section#register .registration-form .login-prompt span {
+  color: #666;
+  font-size: 0.9rem;
+  }
+  
+  section#register .registration-form .login-prompt a {
+  color: #3498db;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  }
+  
+  section#register .registration-form .login-prompt a
+  {
+  color: #2c3e50;
+  }
+  section#register .registration-form .login-prompt a:hover {
+    color: #2c3e50; /* Cambio colore al passaggio del mouse */
+  }
+  .prenotazione {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.prenotazione h2 {
+    margin-bottom: 1rem;
+}
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.input-group input[type="date"],
+.input-group input[type="time"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+.input-group input[type="date"]:focus,
+.input-group input[type="time"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons .btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #3498db;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.buttons .btn:hover {
+  background: #2980b9;
+}
+/* Stili per la pagina dei dati personali */
+.container {
+  max-width: 600px;
+  margin: 80px auto 0; /* Margin top aumentato per evitare sovrapposizione con l'header */
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  margin-bottom: 0.5rem;
+}
+
+.container form {
+  margin-top: 1.5rem; /* Spazio tra il testo e il form di modifica password */
+}
+
+.container .input-group {
+  margin-bottom: 1rem;
+}
+
+.container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.container input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.container .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem; /* Spazio tra i pulsanti */
+}
+
+.container .buttons .btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  background: #3498db;
+  color: white;
+}
+
+.container .buttons .btn:hover {
+  background: #2980b9;
+}
+.buttons .btn-primary {
+  background: #3498db;
+  color: white;
+}
+
+.buttons .btn-primary:hover {
+  background: #2980b9;
+}
+
+.buttons .btn-danger {
+  background: #e74c3c;
+  color: white;
+}
+
+.buttons .btn-danger:hover {
+  background: #c0392b;
+}
+.parking-lot {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 20px auto;
+  border: 1px solid #000;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+.spot {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  border: 1px solid #000;
+}
+.green {
+  background-color: green;
+  color: white;
+}
+.red {
+  background-color: red;
+  color: white;
+  cursor: not-allowed;
+}
+.selected {
+  border: 3px solid yellow;
+}

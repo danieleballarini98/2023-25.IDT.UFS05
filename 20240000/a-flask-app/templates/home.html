@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalPark - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-image: url('{{ url_for("static", filename="Pohang-Apartment.jpeg") }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const images = [
+                "{{ url_for('static', filename='Box Brand Design _ 合子品牌設計有限公司.jpeg') }}",
+                "{{ url_for('static', filename='Shenzhen-Building (1).jpeg') }}",
+                "{{ url_for('static', filename='Shenzhen-Building.jpeg') }}"
+            ];
+            let currentImageIndex = 0;
+
+            // Pre-caricamento delle immagini
+            const preloadImages = (urls) => {
+                urls.forEach(url => {
+                    const img = new Image();
+                    img.src = url;
+                });
+            };
+
+            // Pre-carica tutte le immagini
+            preloadImages(images);
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const changeBackgroundImage = () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                document.body.style.backgroundImage = `url(${images[currentImageIndex]})`;
+            };
+
+            setInterval(changeBackgroundImage, 5000);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="dropdown">
+                <button class="dropdown-toggle">Menu</button>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('storico') }}">Le mie prenotazioni</a>
+                    <a href="{{ url_for('dati') }}">I miei dati</a>
+                    <a href="{{ url_for('logout') }}" style="color:red">Logout</a>
+                </div>
+            </div>
+            <div class="logo">Digital Park</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section">
+            <div class="home-container">
+                <h2>Benvenuto su DigitalPark, {{ user.nome }}</h2>
+                <p>Nome: {{ user.nome }}</p>
+                <p>Cognome: {{ user.cognome }}</p>
+                <p>Email: {{ user.email }}</p>
+                <p>Codice Fiscale: {{ user.cf }}</p>
+            </div>
+        </section>
+
+        <section class="prenotazione">
+            <h2>Effettua una Prenotazione</h2>
+            <form action="{{ url_for('prenotazione') }}" method="post">
+                <div class="input-group">
+                    <label for="data">Scegli una data:</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+                <div class="input-group">
+                    <label for="ora-inizio">Dalle:</label>
+                    <input type="time" id="ora-inizio" name="ora-inizio" required>
+                </div>
+                <div class="input-group">
+                    <label for="ora-fine">Alle:</label>
+                    <input type="time" id="ora-fine" name="ora-fine" required>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="btn">Prenota</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contact-info">
+            <p>Email: info@digitalpark.com</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Address: Via Amoretti 57, Milano (MI) 20157, Italy</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Digital Park. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
