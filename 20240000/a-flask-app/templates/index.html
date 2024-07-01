@@ -1,92 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Park</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        body {
-            background-image: url('{{ url_for("static", filename="Pohang-Apartment.jpeg") }}');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
-    <script defer>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.section');
-            const images = [
-                "{{ url_for('static', filename='Pohang-Apartment.jpeg') }}",
-                "{{ url_for('static', filename='download.jpeg') }}",
-                "{{ url_for('static', filename='Misagangbyeon-Apartment.jpeg') }}"
-            ];
-            let currentImageIndex = 0;
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            const changeBackgroundImage = () => {
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                document.body.style.backgroundImage = `url(${images[currentImageIndex]})`;
-            };
-
-            setInterval(changeBackgroundImage, 5000); 
-        });
-    </script>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">Digital Park</div>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <section id="login" class="section">
-        <div class="login-container">
-            <h2>Login</h2>
-            <form action="#" method="post">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="buttons">
-                    <button type="submit" class="btn login-btn">Login</button>
-                    <a href="/register" class="btn register-btn no-underline">Register</a>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="contact-info">
-            <h3>Contact Information</h3>
-            <p>Email: info@digitalpark.com</p>
-            <p>Phone: +123 456 7890</p>
-            <p>Address: Via Amoretti 57, Milano (MI) 20157, Italy</p>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2024 Digital Park. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
+<html>
+    <head>
+        <title>Titolo</title>
+    </head>
+    <body>
+        <h1>Home</h1>
+        <p>Questa è la tua pagina iniziale</p>
+        <p><a href="/login">Autenticazione</a></p>
+    </body>
 </html>

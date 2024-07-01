@@ -3,7 +3,7 @@
         <title>pagina di benvenuto</title>
     </head>
     <body>
-        <h1>Benvenuto {{paramUser.ottieni_nome()}}</h1>
+        <h1>Benvenuto {{ user['nome'] }}</h1>
         <p><h3>Area Personale</h3></p>
         <p>I tuoi dati:</p>
         <table border="1">
@@ -16,14 +16,13 @@
                 <td>Genere</td>
             </tr>
             <tr>
-                <td>{{paramUser.ottieni_nome()}}</td>
-                <td>{{paramUser.ottieni_cognome()}}</td>
-                <td>{{paramUser.ottieni_username()}}</td>
-                <td>{{paramUser.ottieni_email()}}</td>
-                <td>{{paramUser.ottieni_data_di_nascita()}}</td>
-                <td>{{paramUser.ottieni_genere()}}</td>
+                <td>{{ user['nome'] }}</td>
+                <td>{{ user['cognome'] }}</td>
+                <td>{{ user['username'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['data_di_nascita'] }}</td>
+                <td>{{ user['genere'] }}</td>
             </tr>
-            
         </table>
     </body>
 </html>
