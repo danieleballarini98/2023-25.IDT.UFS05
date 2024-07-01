@@ -69,13 +69,14 @@ def main():
     risposta = "nessuna risposta"
     try:
         connection = mysql.connector.connect(
-            host="its-rizzoli-idt-mysql-37828.mysql.database.azure.com",
+            host="its-rizzoli-idt-mysql-86598.mysql.database.azure.com",
             user="psqladmin",
             passwd="H@Sh1CoR3!",
             database="ufs05db"
         )
         risposta = "Connection to MySQL DB successful"
         cursor = connection.cursor()
+
 
         query = ("SELECT first_name, last_name FROM employees")
         cursor.execute(query)
