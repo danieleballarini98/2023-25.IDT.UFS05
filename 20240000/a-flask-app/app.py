@@ -40,7 +40,7 @@ def initialize_database():
     try:
         # Connessione senza specificare il database, per permettere la creazione del database stesso
         connection = mysql.connector.connect(
-            host="its-rizzoli-idt-mysql-86598.mysql.database.azure.com",
+            host="its-rizzoli-idt-mysql-12147.mysql.database.azure.com",
             user="psqladmin",
             passwd="H@Sh1CoR3!"
         )
@@ -69,7 +69,7 @@ def main():
     risposta = "nessuna risposta"
     try:
         connection = mysql.connector.connect(
-            host="its-rizzoli-idt-mysql-86598.mysql.database.azure.com",
+            host="its-rizzoli-idt-mysql-12147.mysql.database.azure.com",
             user="psqladmin",
             passwd="H@Sh1CoR3!",
             database="ufs05db"
